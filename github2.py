@@ -27,7 +27,11 @@ def login():
     gh = Github(access_token)
     org = gh.get_organization("Rippling")
 
-    repo = org.get_repo("rippling-main")
+    repos = org.get_repos()
+
+    repo = [repo for repo in repos if repo.name == "rippling-main"]
+
+    return repo
 
     prs = repo.get_pulls(state="OPEN")
     for pr in prs:
