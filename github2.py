@@ -22,10 +22,21 @@ def login():
     if not flask_dance.contrib.github.github.authorized:
         return redirect(url_for("github.login"))
     resp = flask_dance.contrib.github.github.get("/user")
-    access_token = flask_dance.contrib.github.github.token
+    access_token = flask_dance.contrib.github.github.access_token
     gh = Github(access_token)
+    # org = gh.get_organization("rippling")
 
-    return str(gh.get_organization("rippling"))
+    repo = gh.get_repo("rippling/rippling-main")
+
+    prs = repo.get_pulls(state="OPEN")
+    for pr in prs:
+        data.append({
+            "message": pr.title,
+            "link": pr.link,
+        })
+        return pr
+
+    return data
 
     assert resp.ok
     return "You are @{login} on GitHub".format(login=resp.json()["login"])
