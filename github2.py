@@ -36,27 +36,33 @@ def login():
     # return str(org)
     # repos = org.get_repos()
 
-    repo = org.get_repo(name="rippling-main")
-    prs = repo.get_pulls(state="OPEN")
-    repo = org.get_repo(name="rippling-webapp")
-    prs = chain(repo.get_pulls(state="OPEN"))
-    nameMap = defaultdict(list)
+    repo_names = ["rippling-main", "rippling-webapp"]
+    repo_prs = []
 
-    for pr in prs:
-        nameMap[pr.user.login].append({
-            "message": pr.title,
-            "link": pr.url,
-        })
-        # return str(pr)
-        # return str(data)
+    for repo_name in repo_names:
+        repo = org.get_repo(name="rippling-main")
+        prs = repo.get_pulls(state="OPEN")
+
+        repo_prs.append((repo_name, prs))
+    nameMap = defaultdict(lambda: defaultdict(list))
+
+    for repo_pr in repo_prs:
+        repoName, prs = repo_pr
+        for pr in prs:
+            nameMap[pr.user.login][repoName].append({
+                "message": pr.title,
+                "link": pr.url,
+            })
 
     text = ""
     for key in nameMap:
         text += "<h2> %s </h2>" % key
         text += "<ul>"
-        for data in nameMap[key]:
-            text += '<li><a href="%s">%s</a></li>' % (data["link"], data["message"])
-
+        for repoName in nameMap[key]:
+            text += "<ul>%s</ul>" % repoName
+            for data in nameMap[key][repoName]:
+                text += '<li><a href="%s">%s</a></li>' % (data["link"], data["message"])
+            text += "</ul>"
         text += "</ul>"
         text += "<br />"
 
