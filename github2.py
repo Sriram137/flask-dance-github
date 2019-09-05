@@ -3,6 +3,7 @@ from github import Github
 from flask import Flask, redirect, url_for
 import flask_dance.contrib.github
 from flask_dance.contrib.github import make_github_blueprint, github
+from collections import defaultdict
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "supersekrit")
@@ -38,18 +39,19 @@ def login():
 
     prs = repo.get_pulls(state="OPEN")
 
-    data = []
+    nameMap = defaultdict(list)
 
     for pr in prs:
-        data.append({
+        nameMap[pr.user.login].append({
             "message": pr.title,
             "link": pr.url,
-            "name": pr.user.login,
         })
         # return str(pr)
         # return str(data)
 
-    return str(data)
+    insurance = [""]
+
+    return str(nameMap)
 
     assert resp.ok
     return "You are @{login} on GitHub".format(login=resp.json()["login"])
