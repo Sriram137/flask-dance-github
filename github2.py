@@ -34,7 +34,7 @@ def login():
     # return str(org)
     repos = org.get_repos()
 
-    return str(len(list(repos)))
+    return str(list(repos))
     repo = [repo for repo in repos]
 
     prs = repo.get_pulls(state="OPEN")
