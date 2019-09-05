@@ -24,14 +24,16 @@ def login():
     resp = flask_dance.contrib.github.github.get("/user")
     access_token = flask_dance.contrib.github.github.access_token
 
+    return str(flask_dance.contrib.github.github.token)
+
     gh = Github(access_token)
     org = gh.get_organization("Rippling")
 
     repos = org.get_repos(type="private")
 
+    return str(repos)
     repo = [repo for repo in repos]
 
-    return str(repo)
 
     prs = repo.get_pulls(state="OPEN")
     for pr in prs:
