@@ -24,6 +24,8 @@ def login():
     access_token = access_token
     gh = Github(access_token)
 
+    return str(gh.get_organization("rippling"))
+
     assert resp.ok
     return str(dir(github))
     return "You are @{login} on GitHub".format(login=resp.json()["login"])
