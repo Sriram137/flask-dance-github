@@ -4,6 +4,7 @@ from flask import Flask, redirect, url_for
 import flask_dance.contrib.github
 from flask_dance.contrib.github import make_github_blueprint, github
 from collections import defaultdict
+from functools import chain
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "supersekrit")
@@ -36,9 +37,9 @@ def login():
     # repos = org.get_repos()
 
     repo = org.get_repo(name="rippling-main")
-
     prs = repo.get_pulls(state="OPEN")
-
+    repo = org.get_repo(name="rippling-webapp")
+    prs = chain(repo.get_pulls(state="OPEN"))
     nameMap = defaultdict(list)
 
     for pr in prs:
@@ -51,10 +52,10 @@ def login():
 
     text = ""
     for key in nameMap:
-        text += "<h2> %s <h2/>" % key
+        text += "<h2> %s </h2>" % key
         text += "<ul>"
         for data in nameMap[key]:
-            text += '<li><a href="%s">%s</a></li>' % (data["message"], data["link"])
+            text += '<li><a href="%s">%s</a></li>' % (data["link"], data["message"])
 
         text += "</ul>"
         text += "<br />"
