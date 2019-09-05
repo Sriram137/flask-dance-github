@@ -44,9 +44,10 @@ def login():
         data.append({
             "message": pr.title,
             "link": pr.url,
-            "name": pr.user.name,
+            "name": pr.user.login,
         })
         # return str(pr)
+        return data
 
     return data
 
