@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "supersekrit")
 app.config["GITHUB_OAUTH_CLIENT_ID"] = os.environ.get("GITHUB_OAUTH_CLIENT_ID")
 app.config["GITHUB_OAUTH_CLIENT_SECRET"] = os.environ.get("GITHUB_OAUTH_CLIENT_SECRET")
-github_bp = flask_dance.contrib.github.make_github_blueprint(scope=["user", 'admin:org', "repo"])
+github_bp = flask_dance.contrib.github.make_github_blueprint(scope="user, admin:org, repo")
 app.register_blueprint(github_bp, url_prefix="/login")
 
 
