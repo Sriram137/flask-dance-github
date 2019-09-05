@@ -27,7 +27,7 @@ def login():
     gh = Github(access_token)
     org = gh.get_organization("Rippling")
 
-    repos = org.get_repos()
+    repos = org.get_repos(type="private")
 
     repo = [repo for repo in repos]
 
