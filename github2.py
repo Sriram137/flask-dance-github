@@ -51,7 +51,7 @@ def login():
         for pr in prs:
             nameMap[pr.user.login][repoName].append({
                 "message": pr.title,
-                "link": pr.url,
+                "link": pr.html_url,
             })
 
     text = ""
@@ -59,7 +59,8 @@ def login():
         text += "<h2> %s </h2>" % key
         text += "<ul>"
         for repoName in nameMap[key]:
-            text += "<ul>%s</ul>" % repoName
+            text += "<ul>"
+            text += "<h5> %s </h5>" % repoName
             for data in nameMap[key][repoName]:
                 text += '<li><a href="%s">%s</a></li>' % (data["link"], data["message"])
             text += "</ul>"
