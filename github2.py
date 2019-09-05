@@ -23,6 +23,7 @@ def login():
         return redirect(url_for("github.login"))
     resp = flask_dance.contrib.github.github.get("/user")
     access_token = flask_dance.contrib.github.github.access_token
+    return str(access_token)
     gh = Github(access_token)
 
     return str(gh.get_organization("rippling"))
