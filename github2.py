@@ -29,7 +29,7 @@ def login():
 
     repos = org.get_repos()
 
-    repo = [repo for repo in repos if repo.name == "rippling-main"]
+    repo = [repo for repo in repos]
 
     return str(repo)
 
