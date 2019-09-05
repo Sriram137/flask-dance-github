@@ -19,4 +19,8 @@ def login():
         return redirect(url_for("github.login"))
     resp = github.get("/user")
     assert resp.ok
+    return dir(github)
     return "You are @{login} on GitHub".format(login=resp.json()["login"])
+
+def get_prs():
+
