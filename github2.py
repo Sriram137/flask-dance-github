@@ -49,6 +49,16 @@ def login():
         # return str(pr)
         # return str(data)
 
+    text = ""
+    for key in nameMap:
+        text += "<h2> %s <h2/>" % key
+        text += "<ul>"
+        for data in nameMap[key]:
+            text += '<li><a href="%s">%s</a></li>' % (data["message"], data["link"])
+
+        text += "</ul>"
+        text += "<br />"
+
     insurance = [""]
 
     return str(nameMap)
