@@ -43,7 +43,8 @@ def login():
     for pr in prs:
         data.append({
             "message": pr.title,
-            "link": pr.link,
+            "link": pr.url,
+            "name": user.name,
         })
         return pr
 
