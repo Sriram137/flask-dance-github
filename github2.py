@@ -37,6 +37,9 @@ def login():
     repo = org.get_repo(name="rippling-main")
 
     prs = repo.get_pulls(state="OPEN")
+
+    data = []
+
     for pr in prs:
         data.append({
             "message": pr.title,
