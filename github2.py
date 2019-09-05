@@ -61,6 +61,8 @@ def login():
 
     insurance = [""]
 
+    return text
+
     return str(nameMap)
 
     assert resp.ok
