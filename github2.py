@@ -31,7 +31,7 @@ def login():
     gh = Github(access_token)
     org = gh.get_organization("Rippling")
 
-    return str(org)
+    # return str(org)
     repos = org.get_repos()
 
     return str(repos)
