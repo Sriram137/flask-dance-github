@@ -47,7 +47,7 @@ def login():
             "name": pr.user.login,
         })
         # return str(pr)
-        return str(data)
+        # return str(data)
 
     return data
 
