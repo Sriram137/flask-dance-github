@@ -31,7 +31,7 @@ def login():
 
     repo = [repo for repo in repos if repo.name == "rippling-main"]
 
-    return repo
+    return str(repo)
 
     prs = repo.get_pulls(state="OPEN")
     for pr in prs:
