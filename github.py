@@ -22,5 +22,4 @@ def login():
     return str(dir(github))
     return "You are @{login} on GitHub".format(login=resp.json()["login"])
 
-def get_prs():
-
+# def get_prs():
