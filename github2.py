@@ -46,7 +46,7 @@ def login():
             "link": pr.url,
             "name": pr.user.name,
         })
-        return str(pr)
+        # return str(pr)
 
     return data
 
