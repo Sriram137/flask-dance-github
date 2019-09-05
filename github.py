@@ -9,11 +9,11 @@ app.config["GITHUB_OAUTH_CLIENT_SECRET"] = os.environ.get("GITHUB_OAUTH_CLIENT_S
 github_bp = make_github_blueprint()
 app.register_blueprint(github_bp, url_prefix="/login")
 
-@app.route("/")
-def index():
-    return "/ello"
-
 @app.route("/hello")
+def index():
+    return "/hello"
+
+@app.route("/")
 def login():
     if not github.authorized:
         return redirect(url_for("github.login"))
