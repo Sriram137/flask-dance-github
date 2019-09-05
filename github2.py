@@ -25,9 +25,9 @@ def login():
     access_token = flask_dance.contrib.github.github.access_token
 
     gh = Github(access_token)
-    # org = gh.get_organization("rippling")
+    org = gh.get_organization("Rippling")
 
-    repo = gh.get_repo("Rippling/rippling-main")
+    repo = org.get_repo("rippling-main")
 
     prs = repo.get_pulls(state="OPEN")
     for pr in prs:
