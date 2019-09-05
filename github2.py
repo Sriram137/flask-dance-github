@@ -4,7 +4,7 @@ from flask import Flask, redirect, url_for
 import flask_dance.contrib.github
 from flask_dance.contrib.github import make_github_blueprint, github
 from collections import defaultdict
-from functools import chain
+from itertools import chain
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "supersekrit")
