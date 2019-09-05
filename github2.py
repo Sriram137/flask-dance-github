@@ -32,12 +32,9 @@ def login():
     org = gh.get_organization("Rippling")
 
     # return str(org)
-    repos = org.get_repos()
+    # repos = org.get_repos()
 
-    return org.get_repo(name="rippling-main")
-
-    return str(list(repos))
-    repo = [repo for repo in repos]
+    repo = org.get_repo(name="rippling-main")
 
     prs = repo.get_pulls(state="OPEN")
     for pr in prs:
