@@ -49,7 +49,7 @@ def login():
         # return str(pr)
         # return str(data)
 
-    return data
+    return str(data)
 
     assert resp.ok
     return "You are @{login} on GitHub".format(login=resp.json()["login"])
