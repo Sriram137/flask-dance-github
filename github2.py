@@ -18,12 +18,12 @@ followListMap = {
 }
 
 
-@app.route("/hello")
+@app.route("/")
 def index():
-    return "/hello"
+    return "Go to use /follow/<follow_tag>"
 
 
-@app.route("/<follow>")
+@app.route("/follow/<follow>")
 def login(follow=None):
     if not flask_dance.contrib.github.github.authorized:
         return redirect(url_for("github.login"))
