@@ -13,34 +13,32 @@ app.config["GITHUB_OAUTH_CLIENT_SECRET"] = os.environ.get("GITHUB_OAUTH_CLIENT_S
 github_bp = flask_dance.contrib.github.make_github_blueprint()
 app.register_blueprint(github_bp, url_prefix="/login")
 
+followListMap = {
+    "insurance": ["VishalRocks", "vampire-slayer", "chenlwilson", "shridharama", "simrandokania1995", "Sriram137", "Equlnox", "richa1995", "therealsanmah", "DefCon-007", "architrai175"]
+}
+
 
 @app.route("/hello")
 def index():
     return "/hello"
 
 
-@app.route("/")
-def login():
+@app.route("/<follow>")
+def login(follow=None):
     if not flask_dance.contrib.github.github.authorized:
         return redirect(url_for("github.login"))
-    resp = flask_dance.contrib.github.github.get("/user")
     access_token = flask_dance.contrib.github.github.access_token
-
-    # return str(access_token)
-
-    # return str(flask_dance.contrib.github.github.token)
-
     gh = Github(access_token)
     org = gh.get_organization("Rippling")
 
-    # return str(org)
-    # repos = org.get_repos()
+    if follow and not followListMap.get(followListMap):
+        return "Follow string not found. Add to followListMap"
 
     repo_names = ["rippling-main", "rippling-webapp"]
     repo_prs = []
 
     for repo_name in repo_names:
-        repo = org.get_repo(name="rippling-main")
+        repo = org.get_repo(name=repo_name)
         prs = repo.get_pulls(state="OPEN")
 
         repo_prs.append((repo_name, prs))
@@ -49,6 +47,10 @@ def login():
     for repo_pr in repo_prs:
         repoName, prs = repo_pr
         for pr in prs:
+            if follow:
+                followList = followListMap[follow]
+                if str(pr.user.name) not in followList:
+                    continue
             nameMap[pr.user.login][repoName].append({
                 "message": pr.title,
                 "link": pr.html_url,
@@ -56,8 +58,8 @@ def login():
 
     text = ""
     for key in nameMap:
-        text += "<h2> %s </h2>" % key
         text += "<ul>"
+        text += "<li> %s </li>" % key
         for repoName in nameMap[key]:
             text += "<ul>"
             text += "<h5> %s </h5>" % repoName
@@ -67,13 +69,4 @@ def login():
         text += "</ul>"
         text += "<br />"
 
-    insurance = [""]
-
     return text
-
-    return str(nameMap)
-
-    assert resp.ok
-    return "You are @{login} on GitHub".format(login=resp.json()["login"])
-
-# def get_prs():
