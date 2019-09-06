@@ -49,7 +49,7 @@ def login(follow=None):
         for pr in prs:
             if follow:
                 followList = followListMap[follow]
-                if str(pr.user.name) not in followList:
+                if str(pr.user.login) not in followList:
                     continue
             nameMap[pr.user.login][repoName].append({
                 "message": pr.title,
