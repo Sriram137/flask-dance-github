@@ -31,7 +31,7 @@ def login(follow=None):
     gh = Github(access_token)
     org = gh.get_organization("Rippling")
 
-    if follow and not followListMap.get(followListMap):
+    if follow and not followListMap.get(follow):
         return "Follow string not found. Add to followListMap"
 
     repo_names = ["rippling-main", "rippling-webapp"]
